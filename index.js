@@ -7,9 +7,9 @@ const anilist = new META.Anilist();
 app.get('/search/:query', async (req, res) => {
     try {
         const results = await anilist.search(req.params.query);
-        res.json(results); // Consumet search returns { results: [...] }
+        res.json(results); // Returns { results: [...] }
     } catch (err) {
-        res.status(500).json({ error: "Search failed", details: err.message });
+        res.status(500).json({ error: "Search failed" });
     }
 });
 
