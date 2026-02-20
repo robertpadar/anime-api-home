@@ -25,12 +25,14 @@ app.get('/info/:id', async (req, res) => {
 });
 
 // WATCH: Gets the final .m3u8 video link
-app.get('/watch/:id', async (req, res) => {
+// Use (.*) to tell Express to capture EVERYTHING in the ID without trying to parse it as regex
+app.get('/watch/:id(*)', async (req, res) => {
     try {
+        // req.params.id will now correctly contain the full ID with the $ signs
         const data = await anilist.fetchEpisodeSources(req.params.id);
         res.json(data);
     } catch (err) {
-        res.status(500).json({ error: "Source not found" });
+        res.status(500).json({ error: "Source not found", details: err.message });
     }
 });
 
